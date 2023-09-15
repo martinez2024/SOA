@@ -67,24 +67,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.mycompany</groupId>
-            <artifactId>Conexion_sat</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.mycompany</groupId>
-            <artifactId>CONEXSAT</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>poi</groupId>
-                    <artifactId>poi</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+       
         
         
         <dependency>
@@ -93,13 +76,8 @@
             <version>3.17</version>
         </dependency>
         <dependency>
-            <groupId>xml</groupId>
-            <artifactId>xml</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
             <groupId>poi</groupId>
-            <artifactId>poi</artifactId>
+            <artifactId>xml</artifactId>
             <version>1</version>
         </dependency>
     </dependencies>

@@ -13,7 +13,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -68,7 +70,7 @@ public class Validacion {
         return archivo;
         
         
-    }catch(IOException e){
+    }catch(Exception e){
         e.printStackTrace();
         return null;
     }
@@ -195,6 +197,55 @@ public class Validacion {
         }
         
     }
+    public String XML(File[] fichXML){
+    List <HashMap> mapDatosCFDIXML = new ArrayList();
+    for (File fichero : fichXML) {
+        System.out.println("Directorio XML: " + fichero.getAbsolutePath());
+        CFDI parseCFDI=new CFDI();
+        HashMap mapaCFDI= parseCFDI.datosXML(fichero.getAbsolutePath());
+        mapDatosCFDIXML.add(mapaCFDI);
+            }
+    for(HashMap mapacfdiXML: mapDatosCFDIXML){
+        HashMap mapaRespSAT=Estatus(mapacfdiXML.get("RFCemisor").toString(),
+                mapacfdiXML.get("RFCreceptor").toString(),
+                mapacfdiXML.get("total").toString(),
+                mapacfdiXML.get("fecha").toString(),
+                mapacfdiXML.get("uuid").toString());
+        //juntar los dos mapas 
+        mapacfdiXML.putAll(mapaRespSAT);
+    }
+     return ("");   
+   }
+public void generarExcelI(List <HashMap> MapaDatosCFDIXML){
+    try{
+            //crear un nuevo Excel 
+              Workbook workbook = new XSSFWorkbook();
+            //crear una nueva hoja 
+              Sheet sheet =workbook.createSheet(" Listado CFDI");
+            //crear encabezados 
+            Row headerRow sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("rfcEmisor"); 
+            headerRow.createCell(1).setCellValue ("rfcReceptor");
+            headerRow.createCell(2).setCellValue ("total");
+            headerRow.createCell(3).setCellValue ("uuid");
+            headerRow.createCell(4).setCellValue ("fecha");
+            headerRow.createCell(5).setCellValue ("serie");
+            headerRow.createCell(6).setCellValue ("folio");
+        
+          for (HashMap mapaDatosCFDIXML();
+          Row row = sheet.createRow (sheet.getLastRowNum()+1);
+          row.createCell(0)setCellValue(mapaDatosCFDIXML.get(RFCemisor).toString());
+
+           FileOutputStream outputStream = new FileOutputStream( "ruta");
+           Workbook.write(OutputStream);
+           outputStream.close();
+
+        }catch(Exception e){
+        e.printStackTrace();
+    }
+}
+    
+    
     public HashMap Estatus1(String rfcEmisor,String rfcReceptor, String total,String uuid){
         HashMap<Object,Object> mapDatossat=new HashMap<>();
         rfcEmisor=rfcEmisor.replaceAll("&","&amp;");

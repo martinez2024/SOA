@@ -36,7 +36,7 @@ public class Excel {
           System.out.print(cellValue + "\t"); 
         System.out.println();
       } 
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     } 
   }
